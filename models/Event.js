@@ -1,3 +1,4 @@
+// Event Model
 'use strict';
 
 module.exports = (sql, DataTypes) => {
@@ -7,8 +8,8 @@ module.exports = (sql, DataTypes) => {
       type: DataTypes.STRING,
       required: true
     },
-    isPublished: DataTypes.BOOLEAN,
-    showOnHeader: DataTypes.BOOLEAN,
+    isPublished: DataTypes.BOOLEAN, // is event published or a draft
+    showOnHeader: DataTypes.BOOLEAN, // show on colored bar or find event page
     lastModifiedBy: DataTypes.STRING,
     eventRegistrationLink: DataTypes.STRING, //link to registration for event
     eventUrl: {
@@ -21,8 +22,8 @@ module.exports = (sql, DataTypes) => {
       }
     },
     eventLocation:  DataTypes.STRING,
-    eventState: DataTypes.TEXT,
-    eventCountry: DataTypes.TEXT,
+    // eventState: DataTypes.TEXT,
+    // eventCountry: DataTypes.TEXT,
     eventContinent: {
       type: DataTypes.ENUM('North America', 'South America', 'Africa', 'Asia', 'Europe', 'Oceania'),
       defaultValue: `North America`
@@ -39,7 +40,18 @@ module.exports = (sql, DataTypes) => {
     eventVenueAddress: DataTypes.STRING,
     eventParkingInfo: DataTypes.TEXT,
     eventVenueImg: DataTypes.STRING,
-    eventLanguage: DataTypes.STRING
+    eventLanguage: DataTypes.STRING,
+    eventAccommodations: DataTypes.TEXT,
+    eventHackathon: DataTypes.TEXT,
+    eventIOLab: DataTypes.TEXT,
+    eventWorkshop: DataTypes.TEXT,
+    // eventAgenda: DataTypes.TEXT,
+    eventAccommodationImg: DataTypes.STRING,
+    eventHackathonImg: DataTypes.STRING,
+    eventWorkshopImg: DataTypes.STRING,
+    eventIOLabImg: DataTypes.STRING,
+    eventVenueInfo: DataTypes.TEXT, 
+    eventPreReqs: DataTypes.TEXT
   },
   {
     hasTrigger: true,

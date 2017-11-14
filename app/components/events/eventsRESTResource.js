@@ -1,3 +1,4 @@
+// Calls REST API for event information
 'use strict';
 
 import * as customFunctions from '../shared/methods/common-functions.js';
@@ -10,8 +11,13 @@ const eventsRESTResource = (app) => {
 			return {
 				getEvents: function(resourceName, callback) {
 					$http.get('/api/' + resourceName)
-          .success(customFunctions.handleSuccess(callback))
-          .error(customFunctions.handleError(callback));
+					.then(function successCallback(data){
+						return callback(null, data);
+					}, function errorCallback(data){
+						callback(data);
+					})
+        //   .success(customFunctions.handleSuccess(callback))
+        //   .error(customFunctions.handleError(callback));
 				}
 			}
 			

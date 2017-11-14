@@ -6,10 +6,11 @@ const MsUser = models.MsUser;
 const userLogging = () => {
 
   const userLoggingObj = {
-
+    // check if user is logged in
     isLoggedIn: (req, res, next) => {
+      console.log(clc.blue('user: ' + req.user))
       res.header('Access-Control-Allow-Credentials', true);
-      if (req.user.hasOwnProperty('unique_name')) {
+      if (req.user) {
         models.sql.sync()
         .then( () => {
           return MsUser.findOne({
@@ -37,7 +38,7 @@ const userLogging = () => {
           req.logout();
           res.redirect(401, `/admin/login`);      
         })
-      } else if (!req.user.hasOwnProperty('unique_name') && req.isAuthenticated() ) { // if user isn't using OAuth' is authenticated in the session, carry on  
+      } else if (!req.user && req.isAuthenticated() ) { // if user isn't using OAuth' is authenticated in the session, carry on  
         req.user.interopAdmin = req.user.isAdmin;
         req.user.strategy = `basic`;
         res.cookie(`strategy`, req.user.strategy, {path: `/`, expires: new Date(Date.now() + 60*60*24*1000)});
@@ -49,7 +50,7 @@ const userLogging = () => {
       }
 
     },
-
+    // check if admin is logged in
     isLoggedInAdmin: (req, res, next) => {
       res.header('Access-Control-Allow-Credentials', true);
       if (req.user.hasOwnProperty('unique_name')) {
@@ -80,7 +81,7 @@ const userLogging = () => {
           req.logout();
           res.redirect(401, `/admin/login`);      
         })
-      } else if (!req.user.hasOwnProperty('unique_name') && req.isAuthenticated() && req.user.isAdmin ) { // if user isn't using OAuth' is authenticated in the session, carry on
+      } else if (!req.user && req.isAuthenticated() && req.user.isAdmin ) { // if user isn't using OAuth' is authenticated in the session, carry on
         req.user.interopAdmin = req.user.isAdmin;
         req.user.strategy = `basic`;
         res.cookie(`strategy`, req.user.strategy, {path: `/`, expires: new Date(Date.now() + 60*60*24*1000)});
@@ -88,7 +89,8 @@ const userLogging = () => {
         return next();
       } else {
         // if they aren't send not authorized
-        res.redirect(401, `/admin/login`);    
+        res.redirect(401, `/admin/login`); 
+        res.redirect(500, '/admin/login');   
       }
 
     }

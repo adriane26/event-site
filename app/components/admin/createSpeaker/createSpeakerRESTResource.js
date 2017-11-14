@@ -12,9 +12,12 @@ const createSpeakerRESTResource = (app) => {
 				createSpeaker: function(resourceData, callback) {
 				
           $http.post('/api/addspeakers', resourceData)
-          .success(customFunctions.handleSuccess(callback))
-          .error(customFunctions.handleError(callback));
-        }
+			.then(function successCallback(data){
+				callback(data)
+			}, function errorCallback(data){
+				callback(data)
+			})	
+        	}
 			}
 			
 		}

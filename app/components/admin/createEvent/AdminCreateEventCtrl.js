@@ -34,11 +34,11 @@ const AdminCreateEventCtrl = (app) => {
           return $scope.errors.push({msg: 'could not retrieve events'});
         };
 
-        for (let i = 0, j = data.length; i < j; i++) {
-          $scope.eventUrls.push(data[i].eventUrl);
+        for (let i = 0, j = data.data.length; i < j; i++) {
+          $scope.eventUrls.push(data.data[i].eventUrl);
         }
         
-        $scope.theEvents = data;
+        $scope.theEvents = data.data;
       });      
     
     };
@@ -50,8 +50,8 @@ const AdminCreateEventCtrl = (app) => {
           return $scope.errors.push({msg: 'could not retrieve speakers'});
         }
 
-        for (let i = 0, len = speakers.length; i < len; i++) {
-          $rootScope.theSpeakers.push(speakers[i]);
+        for (let i = 0, len = speakers.data.length; i < len; i++) {
+          $rootScope.theSpeakers.push(speakers.data[i]);
         }
 
       })
@@ -64,6 +64,18 @@ const AdminCreateEventCtrl = (app) => {
       }
       if ($rootScope.eventVenueImg) {
         newEventData.newEventVenueImg = $rootScope.eventVenueImg.name ? $rootScope.eventVenueImg.size + '-' + $rootScope.eventVenueImg.name : '';
+      }
+      if ($rootScope.eventAccommodationImg) {
+        newEventData.newEventAccommodationImg = $rootScope.eventAccommodationImg.name ? $rootScope.eventAccommodationImg.size + '-' + $rootScope.eventAccommodationImg.name : '';
+      }
+      if ($rootScope.eventHackathonImg) {
+        newEventData.newEventHackathonImg = $rootScope.eventHackathonImg.name ? $rootScope.eventHackathonImg.size + '-' + $rootScope.eventHackathonImg.name : '';
+      }
+      if ($rootScope.eventIOLabImg) {
+        newEventData.newEventIOLabImg = $rootScope.eventIOLabImg.name ? $rootScope.eventIOLabImg.size + '-' + $rootScope.eventIOLabImg.name : '';
+      }
+      if ($rootScope.eventWorkshopImg) {
+        newEventData.newEventWorkshopImg = $rootScope.eventWorkshopImg.name ? $rootScope.eventWorkshopImg.size + '-' + $rootScope.eventWorkshopImg.name : '';
       }
       newEventData.publishStatus = publishStatus;
 
@@ -83,7 +95,10 @@ const AdminCreateEventCtrl = (app) => {
           $scope.newEvent = {};
           $rootScope.eventHeaderImg = undefined;
           $rootScope.eventVenueImg = undefined;
-
+          $rootScope.eventAccommodationImg = undefined;
+          $rootScope.eventHackathonImg = undefined;
+          $rootScope.eventIOLabImg = undefined;
+          $rootScope.eventWorkshopImg = undefined;
           swal({
             title: 'Event Published',
             type: 'success',

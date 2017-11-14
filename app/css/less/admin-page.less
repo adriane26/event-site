@@ -1,22 +1,26 @@
 
-.tinyMceDiv {
-	vertical-align: middle;
-	zoom: 1;
-	border: 1px solid #ccc;
-	font-size: 1em;
-	padding: 5px 0;
-	text-indent: 5px;
-	border-radius: 5px;
-	background: #fff;
-	box-shadow: inset 0 1px 6px #ccc;
-	box-sizing: border-box;
-	min-height: 600px;
-}
+// .tinyMceDiv {
+// 	vertical-align: middle;
+// 	zoom: 1;
+// 	border: 1px solid #ccc;
+// 	font-size: 1em;
+// 	padding: 5px 0;
+// 	text-indent: 5px;
+// 	border-radius: 5px;
+// 	background: #fff;
+// 	box-shadow: inset 0 1px 6px #ccc;
+// 	box-sizing: border-box;
+// 	min-height: 600px;
+// }
 
 /*#editEventForm {
 	border: solid;
 	padding: 10px 10px 10px 10px;
 }*/
+
+.signInSection {
+	margin-top: 80px;
+}
 
 #newEventTabTextArea {
 	border: solid;
@@ -141,9 +145,9 @@ p .lightbox {
 .editedEventSpeaker {
 	min-height: 50px;
 	border: 1px solid #eee;
-  margin: 0;
-  padding: 5px 0 0 0;
-  margin-right: 10px;
+  	margin: 0;
+  	padding: 5px 0 0 0;
+  	margin-right: 10px;
 }
 
 .slide-table-container {
@@ -154,13 +158,21 @@ p .lightbox {
 }
 
 .file-container {
-	.editedEventSpeaker;
+	min-height: 50px;
+	border: 1px solid #000;
+  	margin-right: 30px;
+	margin-bottom: 30px;
 	padding: 5px;
-	width: 10%;
+	width: 150px;
  	vertical-align:top;
-	& i {
+	word-wrap: break-word;
+	.img-thumbnail {
+		max-width: 70%;
+	}
+	 & i {
 		width: 100%;
 	}
+
 }
 
 .new-event-speakers-modal-container, .edited-speaker-wrappe, .slide-table-container {
@@ -219,7 +231,7 @@ table#select-tabs-to-edit-table {
 }
 
 .admin-header-container {
-	margin-top: 1%;
+	margin-top: 7%;
 	margin-bottom: 1%;
 	& .nav-tabs {
 		margin-right: 0 !important;
@@ -228,6 +240,7 @@ table#select-tabs-to-edit-table {
 }
 
 .admin-header-div-with-button {
+	margin: 20px 0px;
 	& a {
 		margin-left: 1.5%;
 	}
@@ -236,9 +249,13 @@ table#select-tabs-to-edit-table {
 	}
 }
 
-.edit-event-menu-button-wrapper {
-	width: 620px;
-	margin: auto;
+.edit-section {
+	width: 100%;
+	.edit-event-menu-button-wrapper {
+		width: 620px;
+		margin: 0 auto;
+		text-align: center;
+	}
 }
 
 #select-tabs-to-edit-table tr {

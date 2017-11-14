@@ -16,6 +16,11 @@ const EditEventCtrl = (app) => {
     $scope.newTab = {};
     $scope.headerImage = $rootScope.eventHeaderImage ? 'uploads/' + $rootScope.eventHeaderImage.size + '-' + $rootScope.eventHeaderImage.name : '';
     $scope.venueImage = $rootScope.eventVenueImg ? 'uploads/' + $rootScope.eventVenueImg.size + '-' + $rootScope.eventVenueImg.name : '';
+    $scope.accommodationImage = $rootScope.eventAccommodationImg ? 'uploads/' + $rootScope.eventAccommodationImg.size + '-' + $rootScope.eventAccommodationImg.name : '';
+    $scope.hackathonImage = $rootScope.eventHackathonImg ? 'uploads/' + $rootScope.eventHackathonImg.size + '-' + $rootScope.eventHackathonImg.name : '';
+    $scope.workshopImage = $rootScope.eventWorkshopImg ? 'uploads/' + $rootScope.eventWorkshopImg.size + '-' + $rootScope.eventWorkshopImg.name : '';
+    $scope.ioLabImage = $rootScope.eventIOLabImg ? 'uploads/' + $rootScope.eventIOLabImg.size + '-' + $rootScope.eventIOLabImg.name : '';
+    //DO THIS ^^^
     $scope.buttonStyle = { 'width': 'auto' };
     $scope.currentEventUrl;
 
@@ -27,12 +32,12 @@ const EditEventCtrl = (app) => {
         if (err) {
           return $scope.errors.push({msg: 'could not retrieve speakers'});
         }
-        for (let i = 0, j = data.length; i < j; i++) {
-          $scope.tester.push(data[i].id);
-          if ($scope.compareArr.indexOf(data[i].id) < 0) {
-            data[i].headShot = '/uploads/' + data[i].headShot;
-            data[i].speakerDescription = $sce.trustAsHtml(data[i].speakerDescription);
-            $scope.unusedSpeakers.push(data[i]);
+        for (let i = 0, j = data.data.length; i < j; i++) {
+          $scope.tester.push(data.data[i].id);
+          if ($scope.compareArr.indexOf(data.data[i].id) < 0) {
+            data.data[i].headShot = '/uploads/' + data.data[i].headShot;
+            data.data[i].speakerDescription = $sce.trustAsHtml(data.data[i].speakerDescription);
+            $scope.unusedSpeakers.push(data.data[i]);
           }
         }
         /*for (let i = 0, len = $scope.slides.length; i < len; i++) {
@@ -58,6 +63,18 @@ const EditEventCtrl = (app) => {
     $rootScope.$watch('eventVenueImg', (oldVal, newVal) => {
       $scope.venueImage = $rootScope.eventVenueImg ? 'uploads/' + $rootScope.eventVenueImg.size + '-' + $rootScope.eventVenueImg.name : '';
     });
+    $rootScope.$watch('eventAccommodationImg', (oldVal, newVal) => {
+      $scope.accommodationImage = $rootScope.eventAccommodationImg ? 'uploads/' + $rootScope.eventAccommodationImg.size + '-' + $rootScope.eventAccommodationImg.name : '';
+    });
+    $rootScope.$watch('eventHackathonImg', (oldVal, newVal) => {
+      $scope.hackathonImage = $rootScope.eventHackathonImg ? 'uploads/' + $rootScope.eventHackathonImg.size + '-' + $rootScope.eventHackathonImg.name : '';
+    });
+    $rootScope.$watch('eventWorkshopImg', (oldVal, newVal) => {
+      $scope.workshopImage = $rootScope.eventWorkshopImg ? 'uploads/' + $rootScope.eventWorkshopImg.size + '-' + $rootScope.eventWorkshopImg.name : '';
+    });
+    $rootScope.$watch('eventIOLabImg', (oldVal, newVal) => {
+      $scope.ioLabImage = $rootScope.eventIOLabImg ? 'uploads/' + $rootScope.eventIOLabImg.size + '-' + $rootScope.eventIOLabImg.name : '';
+    });
 
     $scope.showElem = (elemToShow, elemsToHide) => {
       jQuery(elemToShow).show();
@@ -72,9 +89,14 @@ const EditEventCtrl = (app) => {
         if (err) {
           return $scope.errors.push({msg: 'no event found'});
         };
-        $scope.headerImage = 'uploads/' + data.event.eventHeaderImage;
-        $scope.venueImage = 'uploads/' + data.event.eventVenueImg;
-        $scope.editedEvent = data;
+        $scope.editedEvent = data.data;
+        console.log($scope.editedEvent)
+        $scope.headerImage = '/uploads/' + $scope.editedEvent.eventHeaderImage;
+        $scope.venueImage = '/uploads/' + $scope.editedEvent.eventVenueImg;
+        $scope.accommodationImage = '/uploads/' + $scope.editedEvent.eventAccommodationImg;
+        $scope.hackathonImage = '/uploads/' + $scope.editedEvent.eventHackathonImg;
+        $scope.ioLabImage = '/uploads/' + $scope.editedEvent.eventIOLabImg;
+        $scope.workshopImage = '/uploads/' + $scope.editedEvent.eventWorkshopImg;
         //loop over html string for tabs and tell angular to trust it as html
         for (let i = 0, len = $scope.editedEvent.tabs.length; i < len; i++) {
           $scope.editedEvent.tabs[i].tabContent = $sce.trustAsHtml($scope.editedEvent.tabs[i].tabContent);
@@ -88,16 +110,24 @@ const EditEventCtrl = (app) => {
         }
         for (let i = 0, len = $scope.editedEvent.length; i < len; i++) {
           $scope.editedEvent[i].eventAboutTabText = $sce.trustAsHtml($scope.eventToEdit[i].eventAboutTabText);
+          $scope.editedEvent[i].eventHackathon = $sce.trustAsHtml($scope.eventToEdit[i].eventHackathon);
         }
-        $scope.editedEvent.event.editedEventContinent = data.event.eventContinent;
-        $scope.editedEvent.event.eventAboutTabText = data.event.eventAboutTabText;
+        $scope.editedEvent.event.editedEventContinent = data.data.event.eventContinent;
+        $scope.editedEvent.event.showOnHeader = data.data.event.showOnHeader;
+        $scope.editedEvent.event.eventAboutTabText = data.data.event.eventAboutTabText;
         $scope.startDate = $filter('date')($scope.editedEvent.event.eventStartDate, 'yyyy-MM-dd');
         $scope.endDate = $filter('date')($scope.editedEvent.event.eventEndDate, 'yyyy-MM-dd');
         $scope.editedEvent.event.eventStartDate = new Date( $scope.editedEvent.event.eventStartDate );
         $scope.editedEvent.event.eventEndDate = new Date($scope.editedEvent.event.eventEndDate);
+        $scope.editedEvent.event.eventAccommodations = data.data.event.eventAccommodations;
+        $scope.editedEvent.event.eventHackathon = data.data.event.eventHackathon;
+        $scope.editedEvent.event.eventIOLab = data.data.event.eventIOLab;
+        $scope.editedEvent.event.eventWorkshop = data.data.event.eventWorkshop;
+        $scope.editedEvent.event.eventVenueAddress = data.data.event.eventVenueAddress;
+        $scope.editedEvent.event.eventLocation = data.data.event.eventLocation;
         //assign id to use in associating new tabs
         $scope.newTab.eventId =  $scope.editedEvent.event.id;
-        $scope.currentEventUrl = data.event.eventUrl;
+        $scope.currentEventUrl = data.data.event.eventUrl;
         getUnusedSpeakers();
       })
     };
@@ -120,6 +150,18 @@ const EditEventCtrl = (app) => {
       if ($rootScope.eventVenueImg) {
         newEventData.event.eventVenueImg = $rootScope.eventVenueImg.name ? $rootScope.eventVenueImg.size + '-' + $rootScope.eventVenueImg.name : '';
       }
+      if ($rootScope.eventAccommodationImg) {
+        newEventData.event.eventAccommodationImg = $rootScope.eventAccommodationImg.name ? $rootScope.eventAccommodationImg.size + '-' + $rootScope.eventAccommodationImg.name : '';
+      }
+      if ($rootScope.eventWorkshopImg) {
+        newEventData.event.eventWorkshopImg = $rootScope.eventWorkshopImg.name ? $rootScope.eventWorkshopImg.size + '-' + $rootScope.eventWorkshopImg.name : '';
+      }
+      if ($rootScope.eventHackathonImg) {
+        newEventData.event.eventHackathonImg = $rootScope.eventHackathonImg.name ? $rootScope.eventHackathonImg.size + '-' + $rootScope.eventHackathonImg.name : '';
+      }
+      if ($rootScope.eventIOLabImg) {
+        newEventData.event.eventIOLabImg = $rootScope.eventIOLabImg.name ? $rootScope.eventIOLabImg.size + '-' + $rootScope.eventIOLabImg.name : '';
+      }
       newEventData.event.isPublished = publishStatus;
       EditEventData.editEvent(newEventData, (err, data) => {
         if (err) {
@@ -134,8 +176,14 @@ const EditEventCtrl = (app) => {
         if (!err) {
 
           $scope.editedEvent = {};
+          console.log($scope.editedEvent)
           $rootScope.eventHeaderImage = undefined;
           $rootScope.eventVenueImg = undefined;
+          $rootScope.eventAccommodationImg = undefined;
+          $rootScope.eventHackathonImg = undefined;
+          $rootScope.eventWorkshopImg = undefined;
+          $rootScope.eventIOLabImg = undefined;          
+
           swal({
             title: 'Event Published',
             type: 'success',

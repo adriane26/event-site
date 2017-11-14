@@ -1,0 +1,103 @@
+.navbar-default {
+    border:none;
+    background-color:#0078D7;
+    margin-bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    border-radius: 0px;
+    
+    .navbar-brand {
+        color: #fff;
+        font-family: 'Segoe UI SemiBold';
+    }
+
+    #microsoftLogo {
+        // padding-right: 0px;
+        padding: 12px;
+        img {
+            height: 28px;
+        }
+    }
+
+    #pipe {
+        margin: 0;
+        padding-left: 0px; 
+    }
+
+    .navbar-brand:focus {
+        color: #002050;
+    }
+
+    #pipe {
+        pointer-events: none;
+    }
+
+    .navbar-nav {
+        li{
+            a {
+                font-size: 18px;
+                color: #fff;
+                font-family: 'Segoe UI SemiBold';
+            }
+            a:focus {
+                color: #002050;
+            }
+        }
+
+        .open {
+            a {
+                color: #fff;
+            }
+
+            a:focus,
+            a:hover {
+                background-color: #0078D7;
+                color: #002050;
+            }
+        }
+    }
+
+    #homeMobileLink {
+        display: none;
+    }
+
+    .dropdown-menu {
+        background-color: #0078D7;
+        border: 1px solid #0078D7;
+        li {
+            a {
+                color: #fff !important;
+            }
+            a:hover {
+                background-color: none;
+                color: #002050;
+            }
+        }
+    }
+
+    .navbar-toggle {
+        border: none;
+
+        .icon-bar {
+            background-color: #fff
+        }
+    }
+
+    .navbar-toggle:hover, 
+    .navbar-toggle:focus {
+        background-color: transparent;
+    }
+
+
+    @media all and (max-width: 767px) {
+        #homeMobileLink {
+            display: block;
+        }
+
+        #homeLink, 
+        #pipe {
+            display: none;
+        }
+    }
+}  

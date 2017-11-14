@@ -1,3 +1,5 @@
+// calls REST API for future event data
+
 'use strict';
 
 import * as customFunctions from '../shared/methods/common-functions.js';
@@ -10,8 +12,11 @@ const futureEventsRESTResource = (app) => {
 			return {
 				getFutureEvents: (callback) => {
 					$http.get('/api/futureEventsData')
-          .success(customFunctions.handleSuccess(callback))
-          .error(customFunctions.handleError(callback));
+					.then(function successCallback(data){
+						return callback(null, data);
+					}, function errorCallback(data){
+						return callback(data);
+					})
 				}
 			}
 			
